@@ -19,7 +19,7 @@ app.use(helmet());
 // CORS: only allow your frontend + local dev
 app.use(
   cors({
-    origin: ["https://automation-bible.com", "http://localhost:3000"],
+    origin: ["https://automation-bible.com", "http://localhost:3000", "https://automation-bible.vercel.app"],
     methods: ["GET", "POST"],
   })
 );
