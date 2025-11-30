@@ -1,5 +1,9 @@
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
+  process.env.REACT_APP_API_BASE_URL ||
+  (typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? "http://localhost:5001"
+    : "https://automation-practice-tvfj.onrender.com");
+
 
 export async function apiLogin(email, password) {
   const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
