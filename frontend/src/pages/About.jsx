@@ -85,7 +85,7 @@ export default function About() {
         <h2>{text.contact}</h2>
 
         <div className="contact-links">
-          <a href="https://linkedin.com/in/baala" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/baala-murugan/" target="_blank">LinkedIn</a>
           <a href="https://github.com/baalarazor" target="_blank">GitHub</a>
           <a href="mailto:scbaala@gmail.com">Email</a>
         </div>
