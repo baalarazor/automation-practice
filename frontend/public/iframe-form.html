@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Iframe Form</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        margin: 16px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 6px;
+        margin-top: 2px;
+      }
+      button {
+        margin-top: 12px;
+        padding: 6px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Iframe Login Flow</h2>
+    <p>Use this mini form to practice handling flows inside an iframe.</p>
+    <form>
+      <label>
+        Username
+        <input type="text" name="username" placeholder="iframe-user" />
+      </label>
+      <label>
+        Role
+        <select name="role">
+          <option value="">Select role</option>
+          <option value="admin">Admin</option>
+          <option value="tester">Tester</option>
+          <option value="viewer">Viewer</option>
+        </select>
+      </label>
+      <button type="submit">Submit inside iframe</button>
+    </form>
+  </body>
+</html>

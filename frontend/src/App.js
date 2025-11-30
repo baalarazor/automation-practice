@@ -1,25 +1,30 @@
-import { useEffect, useState } from "react";
-
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import AuthPlayground from "./pages/AuthPlayground";
+import FormPlayground from "./pages/FormPlayground";
+import FileUploadPlayground from "./pages/FileUploadPlayground";
+import MouseActionsPlayground from "./pages/MouseActionsPlayground";
+import AlertsPlayground from "./pages/AlertsPlayground";
+import IframePlayground from "./pages/IframePlayground";
+import ChallengesPlayground from "./pages/ChallengesPlayground";
 
 function App() {
-  const [msg, setMsg] = useState("Loading...");
-
-  useEffect(() => {
-    fetch(`${API_BASE_URL}/api/ping`)
-      .then((res) => res.json())
-      .then((data) => setMsg(data.message))
-      .catch(() => setMsg("Error connecting to backend"));
-  }, []);
-
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Automation Practice</h1>
-      <p>Backend says: {msg}</p>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<AuthPlayground />} />
+        <Route path="/forms" element={<FormPlayground />} />
+        <Route path="/files" element={<FileUploadPlayground />} />
+        <Route path="/mouse" element={<MouseActionsPlayground />} />
+        <Route path="/alerts" element={<AlertsPlayground />} />
+        <Route path="/iframes" element={<IframePlayground />} />
+        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/challenges" element={<ChallengesPlayground />} />
+      </Routes>
+    </Layout>
   );
 }
 
 export default App;
-// redeploy
