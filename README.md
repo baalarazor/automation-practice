@@ -1,137 +1,60 @@
-# automation-practice
-🚀 Automation Bible
+# 🚀 Automation Bible  
+*A free playground for QA Engineers, Testers, and SDETs to practice UI automation, API testing, waits, iFrames, authentication flows, flaky behavior, file uploads, and more.*
 
-A free playground for QA Engineers, Testers, and SDETs to practice UI automation, API testing, waits, iFrames, authentication flows, flaky behavior, file uploads, and more.
+🌍 **Live URL:** https://automation-bible.com  
+💻 **Tech Stack:** React, Node.js, Express, REST API, Vercel, Render  
+🔧 **Best suited for:** Selenium, Playwright, Cypress, Appium, WebDriverIO, Puppeteer, K6  
 
-🌍 Live URL: https://automation-bible.com
+---
 
-💻 Tech Stack: React, Node.js, Express, REST API, Vercel, Render
-🔧 Best suited for: Selenium, Playwright, Cypress, Appium, WebDriverIO, TestCafe, Puppeteer, K6
+## 💡 Why This Exists
 
-💡 Why This Exists
+Automation testers often struggle to find realistic environments to practice.  
+**Automation Bible** provides real UI + backend interactions, not just dummy fields.
 
-Automation testers often struggle to find realistic practice environments beyond simple forms or static demo sites.
-Automation Bible solves that by providing:
+---
 
-Real API calls
+## 📍 Available Practice Pages
 
-Authentication flows
+| Page | URL | What You Can Practice |
+|------|-----|------------------------|
+| 🏠 Home | `/` | Overview |
+| 🔐 Auth | `/auth` | Login, session behavior |
+| 🧾 Forms | `/forms` | Inputs, dropdowns, dates, sliders |
+| 📁 File Uploads | `/files` | Multi-upload & drag-drop |
+| 🖱 Mouse Actions | `/mouse` | Hover, right-click, double-click |
+| ⚠ Alerts | `/alerts` | alert(), confirm(), modals |
+| 🪟 iFrames | `/iframes` | Interactions inside iFrames |
+| 🧪 Challenges | `/challenges` | Flaky API, delayed responses, auth-only requests |
+| 👤 About | `/about` | About the creator |
 
-Dynamic elements
+---
 
-Wait-based challenges
+## 🧪 API Reference
 
-Flaky and delayed responses
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| `POST` | `/api/auth/login` | Get token |
+| `POST` | `/api/forms/submit` | Submit open form |
+| `POST` | `/api/files/upload` | File upload |
+| `GET` | `/api/challenges/delayed-message` | Wait-based response |
+| `GET` | `/api/challenges/flaky` | Random error/success |
+| `POST` | `/api/forms/protected-submit` | Token required |
 
-iFrame interactions
+---
 
-File uploads
+## 🎯 Learning Paths
 
-Responsive UI
+| Level | Start Here | Focus |
+|-------|-----------|--------|
+| Beginner | `/forms`, `/files` | Locators + waits |
+| Intermediate | `/auth`, `/iframes` | Auth flows & frame handling |
+| Advanced | `/challenges` | Flaky + delayed behavior |
+| Expert | End-to-end | Full automation project |
 
-Different paths for logged-in vs guest users
+---
 
-Perfect for learning or interview preparation.
+## 🛠 Running Locally
 
-📍 Available Practice Pages
-Page	URL	What You Can Practice
-🏠 Home	/	Overview of site
-🔐 Auth Playground	/auth	Login, guest mode, session behavior
-🧾 Forms Playground	/forms	All major input types, validation, submission API
-📁 File Uploads	/files	Single & multiple upload, drag & drop
-🖱 Mouse Actions	/mouse	Hover, right-click, double-click events
-⚠ Alerts Playground	/alerts	JavaScript alerts, confirm dialogs, modals
-🪟 iFrame Playground	/iframes	Working inside iframes
-🧪 Challenges	/challenges	Delayed responses, flaky API, auth-protected API
-👤 About	/about	Information about the creator
-🔥 Key Challenge Features
-Feature	Description
-⏳ Delayed backend response	Test explicit waits
-🎲 Random flaky failures	Retry logic practice
-🔒 Auth-protected endpoints	Token-based flows
-🧩 Multi-step interaction challenges	Real-world automation complexity
-📡 Backend API Endpoints
-Method	Endpoint	Purpose
-POST	/api/auth/login	Get token (required for protected routes)
-GET	/api/auth/profile	Validate login token
-POST	/api/forms/submit	Submit open form
-POST	/api/forms/protected-submit	Requires token
-POST	/api/files/upload	Upload one or multiple files
-GET	/api/challenges/delayed-message	Responds after a delay
-GET	/api/challenges/flaky	Random error or success
-🧪 Suggested Learning Tracks
-Level	Practice Page	Learning Focus
-Beginner	/forms, /files	Locators, waits, uploads
-Intermediate	/iframes, /auth	Cross-context automation
-Advanced	/challenges	Synchronization + resilience
-Expert	Build end-to-end across pages	Full automation scenario
-🛠 How to Run Locally
-git clone https://github.com/<your-username>/automation-practice.git
-cd automation-practice
-
-Backend
-cd backend
-npm install
-npm start
-
-
-(Default runs on http://localhost:5000)
-
-Frontend
-cd frontend
-npm install
-npm start
-
-
-(Default runs on http://localhost:3000)
-
-🌍 Deployment
-Service	Purpose
-Vercel	Deploys frontend
-Render	Deploys backend
-
-Both update automatically when pushing to GitHub.
-
-🎯 Roadmap
-
- Data Table CRUD Page
-
- Dark/Light mode toggle
-
- Multi-language expansion (FR, ES)
-
- Advanced challenge levels (Timer UI, Captcha-like task, Fake OTP flow)
-
- Public API documentation with Swagger
-
-👋 About The Creator
-
-Hi, I’m Baala, a Lead SDET with 9+ years in automation engineering.
-
-I built Automation Bible to help testers learn real-world automation skills—not just click basic input fields.
-
-🔗 Connect with me:
-
-🔹 LinkedIn: https://linkedin.com/in/baala
-
-🔹 GitHub: https://github.com/baalarazor
-
-📩 Email: scbaala@gmail.com
-
-⭐ Contributions & Ideas
-
-Is something missing?
-
-New UI elements?
-
-Harder automation problems?
-
-Randomized state?
-
-Device/browser grid?
-
-➡️ Open an issue or submit a PR — collaboration welcome.
-
-❤️ If this helps you, give the repo a Star ⭐
-
-It motivates future updates & helps others discover the project.
+```sh
+git clone https://github.com/YOUR-USERNAME/automation-practice.git
