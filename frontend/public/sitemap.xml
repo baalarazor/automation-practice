@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+  <url>
+    <loc>https://automation-bible.com/</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/auth</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/forms</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/files</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/mouse</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/alerts</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/iframes</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/challenges</loc>
+  </url>
+  <url>
+    <loc>https://automation-bible.com/about</loc>
+  </url>
+</urlset>

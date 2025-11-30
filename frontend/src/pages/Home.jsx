@@ -1,6 +1,13 @@
+import { useLanguage } from "../languageContext";
+import Seo from "../Seo";
+
 export default function Home() {
   return (
     <div className="page">
+    <Seo
+      title="Automation Bible – UI & API Automation Testing Practice Site"
+      description="Practice UI automation, API testing, iframes, waits, file uploads, auth flows and more on Automation Bible – a free playground for QA engineers and SDETs."
+    />
       <section className="hero-section">
         <h1>Automation Practice Playground</h1>
         <p>

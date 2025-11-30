@@ -1,5 +1,5 @@
 import { useLanguage } from "../languageContext";
-
+import Seo from "../Seo";
 export default function About() {
   const { lang } = useLanguage();
 
@@ -28,6 +28,10 @@ export default function About() {
 
   return (
     <div className="page">
+    <Seo
+      title="About Baala – Creator of Automation Bible"
+      description="Baala is a Lead SDET helping QA engineers and SDETs practice real-world automation scenarios with Automation Bible."
+    />
       <section className="hero-section">
         <h1>{t.title}</h1>
 
