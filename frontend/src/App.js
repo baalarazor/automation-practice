@@ -9,6 +9,8 @@ import AlertsPlayground from "./pages/AlertsPlayground";
 import IframePlayground from "./pages/IframePlayground";
 import ChallengesPlayground from "./pages/ChallengesPlayground";
 import About from "./pages/About";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path="/iframes" element={<IframePlayground />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/challenges" element={<ChallengesPlayground />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Layout>
   );

@@ -1,100 +1,92 @@
 import { useLanguage } from "../languageContext";
 import Seo from "../Seo";
+
 export default function About() {
   const { lang } = useLanguage();
 
-  const text = {
+  const t = {
     en: {
       title: "About Me",
-      subtitle: "Hi, I'm Baala! 👋",
-      bio: `I'm a Lead SDET and Automation Engineer with 9+ years of experience building automation frameworks, delivering high-quality software, and helping teams test smarter using modern tooling and AI.`,
-      missionTitle: "Mission with Automation Bible",
-      mission: `I created this platform to give QA professionals a real playground to practice UI automation, API testing, waits, iFrames, file uploads, auth workflows, and more — just like real-world systems.`,
-      skillsTitle: "Tech I Work With",
-      contactTitle: "Connect with me",
+      greeting: "👋 Hi, I’m Baala!",
+      bio: `I'm a Lead SDET with 9+ years of experience in automation testing, building frameworks, improving test efficiency, and enabling QA teams to scale confidently.`,
+      missionTitle: "Why I Built Automation Bible",
+      mission: `I wanted to create a real automation playground — not just a demo form. Real login flow, file uploads, iFrames, flaky systems, delayed responses, and backend validation are the real challenges testers face.`,
+      skillsTitle: "Skills & Tools",
+      contact: "Connect With Me",
     },
     de: {
       title: "Über mich",
-      subtitle: "Hallo, ich bin Baala! 👋",
-      bio: `Ich bin ein Lead SDET und Automatisierungsingenieur mit mehr als 9 Jahren Erfahrung im Aufbau von Testautomatisierungs-Frameworks und der Qualitätssicherung mit modernen Tools und KI.`,
-      missionTitle: "Mission mit Automation Bible",
-      mission: `Ich habe diese Website erstellt, um QA-Testern einen echten Ort zu geben, an dem sie UI- und API-Testautomatisierung, iFrames, Uploads, Auth-Flow und Wartebedingungen wie in echten Systemen üben können.`,
-      skillsTitle: "Technologien",
-      contactTitle: "Kontakt",
+      greeting: "👋 Hallo, ich bin Baala!",
+      bio: `Ich bin Lead SDET mit über 9 Jahren Erfahrung in Testautomatisierung, Framework-Entwicklung und QA-Enablement.`,
+      missionTitle: "Warum Automation Bible?",
+      mission: `Ich wollte einen echten Testspielplatz schaffen – mit Login, iFrames, Uploads, verzögerten Antworten und realistischen API-Flows.`,
+      skillsTitle: "Fähigkeiten & Tools",
+      contact: "Kontakt",
     }
   };
 
-  const t = text[lang];
+  const text = t[lang];
 
   return (
     <div className="page">
-    <Seo
-      title="About Baala – Creator of Automation Bible"
-      description="Baala is a Lead SDET helping QA engineers and SDETs practice real-world automation scenarios with Automation Bible."
-    />
-      <section className="hero-section">
-        <h1>{t.title}</h1>
+      <Seo
+        title="About Baala – Creator of Automation Bible"
+        description="Learn more about Baala, creator of Automation Bible and experienced Lead SDET passionate about automation testing and training."
+      />
 
-        <div
-          style={{
-            marginTop: "1rem",
-            padding: "1.5rem",
-            background: "rgba(255,255,255,0.05)",
-            borderRadius: "12px",
-            textAlign: "center"
-          }}
-        >
-          <h2 style={{ marginBottom: "0.2rem" }}>{t.subtitle}</h2>
-          <p style={{ maxWidth: "600px", margin: "0 auto", lineHeight: "1.6" }}>
-            {t.bio}
-          </p>
+      <h1>{text.title}</h1>
+
+      <div className="about-wrapper">
+        <img
+          src="/profile.jpg"
+          alt="Profile of Baala"
+          className="profile-photo"
+        />
+
+        <div className="about-text">
+          <h2>{text.greeting}</h2>
+          <p>{text.bio}</p>
         </div>
+      </div>
+
+      <section className="section">
+        <h2>{text.missionTitle}</h2>
+        <p>{text.mission}</p>
       </section>
 
       <section className="section">
-        <h2>{t.missionTitle}</h2>
-        <p style={{ maxWidth: "700px", lineHeight: "1.6" }}>
-          {t.mission}
-        </p>
-      </section>
-
-      <section className="section section-muted">
-        <h2>{t.skillsTitle}</h2>
-
+        <h2>{text.skillsTitle}</h2>
         <div className="badge-grid">
           {[
             "Selenium",
             "Playwright",
             "Cypress",
             "WebDriverIO",
-            "Postman",
             "Appium",
-            "REST",
-            "GraphQL",
-            "CI/CD",
-            "Docker",
             "Java",
             "JavaScript",
             "Node.js",
             "React",
-            "Python",
-            "K6 / Load Test"
-          ].map((skill) => (
-            <span key={skill} className="badge">{skill}</span>
+            "Postman",
+            "REST",
+            "GraphQL",
+            "CI/CD",
+            "Docker",
+            "K6",
+          ].map((item) => (
+            <span className="badge" key={item}>
+              {item}
+            </span>
           ))}
         </div>
       </section>
 
-      <section className="section">
-        <h2>{t.contactTitle}</h2>
+      <section className="section section-muted">
+        <h2>{text.contact}</h2>
 
         <div className="contact-links">
-          <a href="https://github.com/baalarazor" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          <a href="https://linkedin.com/in/baala" target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
+          <a href="https://linkedin.com/in/baala" target="_blank">LinkedIn</a>
+          <a href="https://github.com/baalarazor" target="_blank">GitHub</a>
           <a href="mailto:scbaala@gmail.com">Email</a>
         </div>
       </section>
