@@ -280,6 +280,23 @@ textarea {
   color: #e5e7eb;
 }
 
+/* Fix radio & checkbox alignment inside fieldsets */
+.radio-checkbox-section fieldset label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Radios / checkboxes should NOT be full width */
+.radio-checkbox-section fieldset input[type="radio"],
+.radio-checkbox-section fieldset input[type="checkbox"] {
+  width: auto !important;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+
 textarea {
   resize: vertical;
   min-height: 90px;
@@ -691,4 +708,43 @@ button:disabled {
   .footer {
     padding-inline: 0.7rem;
   }
+/* --- FIX: Radio & Checkbox alignment --- */
+.radio-checkbox-section fieldset label {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+/* Ensure input stays close to label text */
+.radio-checkbox-section input[type="radio"],
+.radio-checkbox-section input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Better spacing for touch devices */
+@media (max-width: 600px) {
+  .radio-checkbox-section fieldset label {
+    gap: 12px;              /* more space for fingers */
+    padding: 6px 0;         /* easier tap target */
+  }
+
+  .radio-checkbox-section input[type="radio"],
+  .radio-checkbox-section input[type="checkbox"] {
+    transform: scale(1.2);  /* slightly larger on mobile */
+  }
+}
+
+.radio-checkbox-section fieldset label:hover {
+  opacity: 0.85;
+}
+
+.radio-checkbox-section input:focus-visible {
+  outline: 2px solid #3b82f6;
+}
+
 }
