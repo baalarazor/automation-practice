@@ -8,12 +8,14 @@ import MouseActionsPlayground from "./pages/MouseActionsPlayground";
 import AlertsPlayground from "./pages/AlertsPlayground";
 import IframePlayground from "./pages/IframePlayground";
 import ChallengesPlayground from "./pages/ChallengesPlayground";
+import About from "./pages/About";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/auth" element={<AuthPlayground />} />
         <Route path="/forms" element={<FormPlayground />} />
         <Route path="/files" element={<FileUploadPlayground />} />

@@ -36,6 +36,7 @@ export default function Header() {
           <NavItem to="/alerts">{labels.alerts}</NavItem>
           <NavItem to="/iframes">{labels.iframes}</NavItem>
           <NavItem to="/challenges">{labels.challenges}</NavItem>
+          <NavItem to="/about">{lang === "de" ? "Über mich" : "About"}</NavItem>
 
           <div className="lang-toggle">
             <button

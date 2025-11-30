@@ -510,4 +510,35 @@ img, iframe {
   max-width: 100%;
 }
 
+.badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  color: #fff;
+  opacity: 0.8;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.contact-links a:hover {
+  opacity: 1;
+}
+
+
 }
