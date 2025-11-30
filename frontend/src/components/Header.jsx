@@ -1,8 +1,12 @@
 import NavItem from "./NavItem";
 import { useLanguage } from "../languageContext";
+import { useTheme } from "../themeContext";
+
 
 export default function Header() {
   const { lang, setLang } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+
 
   const labels = {
     home: lang === "de" ? "Startseite" : "Home",
@@ -58,6 +62,17 @@ export default function Header() {
               DE
             </button>
           </div>
+
+          <div className="theme-toggle">
+             <button
+                type="button"
+                className="theme-btn"
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+             >
+            {theme === "dark" ? "☾" : "☀"}
+            </button>
+         </div>
         </nav>
       </div>
     </header>
