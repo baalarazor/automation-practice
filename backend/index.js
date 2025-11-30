@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
@@ -11,27 +11,40 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// --- Middleware ---
-app.use(cors());
+// --- Security & middleware ---
+
+// Security headers
+app.use(helmet());
+
+// CORS: only allow your frontend + local dev
+app.use(
+  cors({
+    origin: ["https://automation-bible.com", "http://localhost:3000"],
+    methods: ["GET", "POST"],
+  })
+);
+
+// JSON body parsing
 app.use(express.json());
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
-
-// Multer config for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadsDir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
-  }
+// Basic rate limiting for all /api routes
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 min
+  max: 100, // 100 requests per minute per IP
+  standardHeaders: true,
+  legacyHeaders: false,
 });
-const upload = multer({ storage });
+
+app.use("/api", apiLimiter);
+
+// Multer config for file uploads: IN-MEMORY, not saved to disk
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB per file
+    files: 10,
+  },
+});
 
 // --- Basic health routes ---
 app.get("/api/ping", (req, res) => {
@@ -49,7 +62,15 @@ const VALID_PASSWORD = "password123";
 app.post("/api/auth/login", (req, res) => {
   const { email, password } = req.body || {};
 
-  console.log("Login attempt:", email, password);
+  // basic validation to avoid weird payloads
+  if (typeof email !== "string" || typeof password !== "string") {
+    return res.status(400).json({ message: "Invalid payload" });
+  }
+  if (email.length > 200 || password.length > 100) {
+    return res.status(400).json({ message: "Payload too long" });
+  }
+
+  console.log("Login attempt:", email);
 
   if (email === VALID_EMAIL && password === VALID_PASSWORD) {
     return res.json({
@@ -58,14 +79,14 @@ app.post("/api/auth/login", (req, res) => {
       token: "fake-jwt-token-123",
       user: {
         email,
-        name: "Automation Tester"
-      }
+        name: "Automation Tester",
+      },
     });
   }
 
   return res.status(401).json({
     status: "failure",
-    message: "Invalid credentials"
+    message: "Invalid credentials",
   });
 });
 
@@ -76,7 +97,7 @@ app.get("/api/auth/profile", (req, res) => {
       email: VALID_EMAIL,
       name: "Automation Tester",
       role: "admin",
-      labsCompleted: 3
+      labsCompleted: 3,
     });
   }
 
@@ -91,12 +112,11 @@ app.post("/api/forms/submit", (req, res) => {
   res.json({
     status: "received",
     receivedAt: new Date().toISOString(),
-    fields: payload
+    fields: payload,
   });
 });
 
 // --- Challenge: delayed response endpoint ---
-// For practicing explicit/implicit waits in automation.
 app.get("/api/challenges/delayed-message", async (req, res) => {
   const delayMs = Number(req.query.delayMs || 3000); // configurable delay
   console.log(`Delayed endpoint hit, delaying for ${delayMs}ms`);
@@ -106,12 +126,11 @@ app.get("/api/challenges/delayed-message", async (req, res) => {
   res.json({
     status: "success",
     delayMs,
-    message: "This response was delayed on purpose."
+    message: "This response was delayed on purpose.",
   });
 });
 
 // --- Challenge: random flaky endpoint ---
-// Sometimes returns 200, sometimes 500. Great for retry logic.
 app.get("/api/challenges/flaky", (req, res) => {
   const random = Math.random();
   const threshold = 0.5; // 50% failure
@@ -120,26 +139,25 @@ app.get("/api/challenges/flaky", (req, res) => {
     console.log("Flaky endpoint: returning FAILURE");
     return res.status(500).json({
       status: "error",
-      message: "Random failure occurred. Please retry."
+      message: "Random failure occurred. Please retry.",
     });
   }
 
   console.log("Flaky endpoint: returning SUCCESS");
   return res.json({
     status: "success",
-    message: "Flaky endpoint succeeded this time."
+    message: "Flaky endpoint succeeded this time.",
   });
 });
 
 // --- Challenge: auth-protected form submission ---
-// Requires Authorization: Bearer fake-jwt-token-123
 app.post("/api/forms/protected-submit", (req, res) => {
   const authHeader = req.header("Authorization") || "";
   if (authHeader !== "Bearer fake-jwt-token-123") {
     console.log("Protected form: unauthorized");
     return res.status(401).json({
       status: "unauthorized",
-      message: "Valid token required. Use /api/auth/login to get one."
+      message: "Valid token required. Use /api/auth/login to get one.",
     });
   }
 
@@ -149,38 +167,43 @@ app.post("/api/forms/protected-submit", (req, res) => {
   return res.json({
     status: "success",
     receivedAt: new Date().toISOString(),
-    fields: payload
+    fields: payload,
   });
 });
 
+// --- File upload endpoint (IN MEMORY, NOT STORED) ---
+const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
 
-// --- File upload endpoints ---
-app.post(
-  "/api/files/upload",
-  upload.array("files", 10),
-  (req, res) => {
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No files uploaded" });
-    }
+app.post("/api/files/upload", upload.array("files", 10), (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ message: "No files uploaded" });
+  }
 
-    const files = req.files.map((f) => ({
-      originalName: f.originalname,
-      storedName: f.filename,
-      size: f.size,
-      mimeType: f.mimetype
-    }));
+  const invalid = req.files.filter(
+    (f) => !allowedTypes.includes(f.mimetype)
+  );
 
-    console.log("Files uploaded:", files);
-
-    res.json({
-      status: "success",
-      count: files.length,
-      files
+  if (invalid.length > 0) {
+    return res.status(400).json({
+      status: "error",
+      message: "Some file types are not allowed for this demo",
     });
   }
-);
 
-app.use("/uploads", express.static(uploadsDir));
+  const files = req.files.map((f) => ({
+    originalName: f.originalname,
+    size: f.size,
+    mimeType: f.mimetype,
+  }));
+
+  console.log("Files uploaded (NOT stored):", files);
+
+  res.json({
+    status: "success",
+    count: files.length,
+    files,
+  });
+});
 
 // --- Start server ---
 const PORT = process.env.PORT || 5001;
